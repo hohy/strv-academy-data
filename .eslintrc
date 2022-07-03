@@ -5,8 +5,7 @@
     "@strv/eslint-config-node/style",
     "@strv/eslint-config-typescript",
     "@strv/eslint-config-typescript/optional",
-    "@strv/eslint-config-typescript/style",
-    "@strv/eslint-config-mocha"
+    "@strv/eslint-config-typescript/style"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
@@ -22,6 +21,7 @@
     "arrow-parens": [
       "warn",
       "always"
-    ]
+    ],
+    "no-console": "off",
   }
 }
