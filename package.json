@@ -12,7 +12,8 @@
   "dependencies": {
     "chance": "^1.1.8",
     "firebase": "^9.8.4",
-    "firebase-admin": "^11.0.0"
+    "firebase-admin": "^11.0.0",
+    "ioredis": "^5.1.0"
   },
   "devDependencies": {
     "@strv/eslint-config-node": "^3.1.0",

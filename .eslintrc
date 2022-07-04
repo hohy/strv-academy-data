@@ -23,5 +23,17 @@
       "always"
     ],
     "no-console": "off",
+    "no-constant-condition": [
+      "warn",
+      {
+        "allowConstantLoopConditions": true
+      }
+    ],
+    "@typescript-eslint/no-unnecessary-condition": [
+      "warn",
+      {
+        "allowConstantLoopConditions": true
+      }
+    ]
   }
 }
