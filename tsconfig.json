@@ -10,6 +10,6 @@
       "esnext"
     ],
     "esModuleInterop": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   }
 }
