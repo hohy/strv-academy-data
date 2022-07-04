@@ -2,7 +2,7 @@
 import IORedis from 'ioredis'
 import { delay } from '../utils/delay'
 
-const redis = new IORedis('redis://localhost:8003', {
+const redis = new IORedis('redis://localhost:6379', {
   maxRetriesPerRequest: null,
 })
 

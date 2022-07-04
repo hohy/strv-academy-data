@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14.1-alpine
+    container_name: strv-academy-postgres
+    environment:
+      - POSTGRES_DB=database
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports: 
+      - 5432:5432
+    healthcheck:
+      test: pg_isready -U postgres -h 127.0.0.1
+      interval: 5s
+
+  redis:
+    image: redis:6
+    container_name: strv-academy-redis
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+
+  mongo:
+    image: mongo:4.2
+    container_name: strv-academy-mongo
+    ports:
+      - 27017:27017
+    healthcheck:
+      test: [ "CMD", "mongo", "--eval", "printjson( { ping: 1 } )" ]
+      interval: 5s
