@@ -19,7 +19,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgres://postgres:postgres@localhost:5432/database"
+  url      = "postgres://postgres:postgres@localhost:5432/prisma"
 }
 
 model User {

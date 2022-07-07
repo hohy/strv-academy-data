@@ -20,4 +20,4 @@ const selectedUser = await prisma.user.findFirst({
 console.log(selectedUser?.name)
 // console.log(selectedUser?.age)
 
-prisma.$disconnect()
+await prisma.$disconnect()

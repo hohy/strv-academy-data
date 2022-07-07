@@ -11,6 +11,8 @@ model User {
   id      String   @db.Uuid @id @default(uuid())
   name    String
   age     Int
+
+  @@map("users")
 }
 
 model Counter {
