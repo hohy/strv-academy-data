@@ -6,11 +6,13 @@ logger.info('Connecting to MongoDB')
 
 interface IAirport {
   airport: string,
+  city: string,
   connects: string[],
 }
 
 const airportSchema = new Schema<IAirport>({
   airport: { type: String, required: true },
+  city: { type: String, required: false },
   connects: { type: [String], required: true },
 })
 
@@ -23,11 +25,11 @@ await Airport.remove({})
 
 // add airports
 await Airport.insertMany([
-  { "airport": "JFK", "connects": ["BOS", "ORD"] },
-  { "airport": "BOS", "connects": ["JFK", "PWM"] },
-  { "airport": "ORD", "connects": ["JFK"] },
-  { "airport": "PWM", "connects": ["BOS", "LHR"] },
-  { "airport": "LHR", "connects": ["PWM"] },
+  { "airport": "JFK", "city": "New York", "connects": ["BOS", "ORD"] },
+  { "airport": "BOS", "city": "Boston", "connects": ["JFK", "PWM"] },
+  { "airport": "ORD", "city": "Chicago", "connects": ["JFK"] },
+  { "airport": "PWM", "city": "Portland", "connects": ["BOS", "LHR"] },
+  { "airport": "LHR", "city": "London", "connects": ["PWM"] },
 ])
 
 const destinations = await Airport.aggregate([
@@ -46,9 +48,12 @@ const destinations = await Airport.aggregate([
   { $unwind: '$destinations' },
   {
     $project: {
+      "_id": 0,
       "airport": 1,
+      "city": 1,
       "route": {
         destination: "$destinations.airport",
+        city: "$destinations.city",
         transfers: "$destinations.numConnections",
       },
     }
