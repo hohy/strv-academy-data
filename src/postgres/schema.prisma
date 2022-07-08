@@ -10,12 +10,28 @@ datasource db {
 model User {
   id      String   @db.Uuid @id @default(uuid())
   name    String
-  age     Int
+  email   String   @unique
+  age     Int?
+  deleted Boolean  @default(false)
+
+  posts   Post[]
 
   @@map("users")
 }
 
-model Counter {
-  id      String   @db.Uuid @id @default(uuid())
-  value   BigInt   @default(0)
+model Post {
+  id        String      @db.Uuid @id @default(uuid())
+  title     String
+  content   String?
+  createdAt DateTime    @default(now()) @map("created_at")
+  authorId  String      @map("author_id") @db.Uuid
+
+  author   User    @relation(fields: [authorId], references: [id])
+
+  @@map("posts")
 }
+
+// model Counter {
+//   id      String   @db.Uuid @id @default(uuid())
+//   value   BigInt   @default(0)
+// }

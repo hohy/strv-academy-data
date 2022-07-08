@@ -4,7 +4,10 @@ import pino from 'pino'
 export const loggerInstance = pino({
   level: 'debug',
   transport: {
-    target: 'pino-pretty'
+    target: 'pino-pretty',
+    options: {
+      colorize: true,
+    }
   },
 })
 

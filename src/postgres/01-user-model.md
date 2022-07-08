@@ -25,12 +25,10 @@ datasource db {
 model User {
   id      String   @db.Uuid @id @default(uuid())
   name    String
-  age     Number
-}
+  email   String   @unique
+  age     Int?
 
-model Data {
-  id      String   @db.Uuid @id @default(uuid())
-  counter Decimal  @default(0)
+  @@map("users")
 }
 ```
 
@@ -44,3 +42,8 @@ Migrate the database to the current schema
 npx prisma migrate dev --name init
 ```
 
+Run `01-user-model.ts` to create db records.
+
+
+
+TODO: Indexes

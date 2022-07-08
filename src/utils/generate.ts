@@ -2,16 +2,16 @@ import { Chance } from 'chance'
 
 export const generate = new Chance()
 
-interface FirestoreUser {
-  first: string
-  last: string
+interface IUser {
+  name: string
+  email: string
   age: number
 }
 
-export function generateUser(): FirestoreUser {
+export function generateUser(): IUser {
   return {
-    first: generate.name(),
-    last: generate.name_suffix(),
+    name: generate.name(),
+    email: generate.email(),
     age: generate.age(),
   }
 }

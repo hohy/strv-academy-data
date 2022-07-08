@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import { logger } from '../utils/logger';
 const { Schema, model, connect } = mongoose
 
-logger.info('Connecting to MongoDB')
+logger.info('MongoDB Graph Lookup demo')
 
 interface IAirport {
   airport: string,
