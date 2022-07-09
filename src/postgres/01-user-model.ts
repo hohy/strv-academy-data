@@ -51,4 +51,11 @@ const oldestPeople = await prisma.user.findMany({
 })
 logger.info({ oldestPeople }, 'Oldest people')
 
+// Raw SQL queries
+const raw = await prisma.$queryRaw`SELECT * FROM "users" WHERE email = ${user.email}`;
+logger.info({ raw }, 'Raw SQL query result');
+
+// Transactions
+
+
 await prisma.$disconnect()

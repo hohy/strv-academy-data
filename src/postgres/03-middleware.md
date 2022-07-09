@@ -8,3 +8,5 @@ deleted Boolean @default(false)
 ```
 
 generate & migrate
+
+For complete implementation see: https://www.prisma.io/docs/concepts/components/prisma-client/middleware/soft-delete-middleware

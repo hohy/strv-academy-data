@@ -3,7 +3,6 @@ import IORedis from 'ioredis'
 import mongoose from 'mongoose'
 import { delay } from '../utils/delay'
 import { PrismaClient } from '@prisma/client'
-import { generate } from '../utils/generate'
 const prisma = new PrismaClient()
 
 console.log('Performance test')
@@ -60,8 +59,6 @@ const incrementPg: () => Promise<void> = async () => {
     }
   }).then(incrementPg)
 }
-
-//const incrementPG: () => Promise<void> = () => redis.incr('user').then(incrementRedis)
 
 async function printStats(): Promise<void> {
   while (true) {

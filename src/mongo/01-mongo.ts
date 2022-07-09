@@ -9,12 +9,14 @@ const { Schema, model, connect } = mongoose
 
 interface IUser {
   name: string
-  age: number
+  age?: number
+  email: string
 }
 
 const userSchema = new Schema<IUser>({
   name: { type: String, required: true },
   age: { type: Number, required: false },
+  email: { type: String, required: true, unique: true },
 })
 
 const User = model<IUser>('User', userSchema)
@@ -28,19 +30,22 @@ await User.remove({})
 const newUser = new User({
   name: generate.name(),
   age: generate.age(),
+  email: generate.email(),
 })
 
 const result = await newUser.save()
 logger.info({ id: result.id }, 'Assigned user id')
 
 // Query the user back
-const user = await User.findById(result.id)
-logger.info({ user }, 'User read from database')
+const user = await User.findById(result.id, { name: 0 })
+// TS is not signaling any errors although we want to print name, but it's excluded in the query
+logger.info({ name: user?.name, age: user?.age }, 'User read from database')
 
 // Create some more users
 await User.insertMany(_.times(100, () => ({
   name: generate.name(),
   age: generate.age(),
+  email: generate.email(),
 })))
 
 // Count all users in the users collection
@@ -52,9 +57,6 @@ count = await User.countDocuments({ age: { $gt: 50 } })
 logger.info({ count }, 'User over 50 count')
 
 const averageAge = await User.aggregate([
-  {
-    $match: { age: "medium" }
-  },
   {
     $group: {
       _id: null,
