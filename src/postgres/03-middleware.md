@@ -7,6 +7,6 @@ Update schema to contain `delete` field
 deleted Boolean @default(false)
 ```
 
-generate & migrate
+Regenerate & migrate 🚀
 
 For complete implementation see: https://www.prisma.io/docs/concepts/components/prisma-client/middleware/soft-delete-middleware

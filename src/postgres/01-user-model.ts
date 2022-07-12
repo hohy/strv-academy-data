@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import _ from 'lodash'
-import { generate, generateUser } from '../utils/generate'
+import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 const prisma = new PrismaClient()
 

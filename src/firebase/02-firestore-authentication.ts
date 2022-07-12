@@ -10,7 +10,7 @@ const adminApp = firebase.initializeApp({
   credential: firebase.credential.cert(serviceAccount as Object),
 })
 
-const token = await adminApp.auth().createCustomToken(generate.guid())
+const token = await adminApp.auth().createCustomToken(generate.guid(), { role: 'user' })
 console.log('Firebase auth token', token)
 
 // Authenticaticate using the token

@@ -8,3 +8,11 @@ generator client {
   previewFeatures = ["interactiveTransactions"]
 }
 ```
+
+Add balance field to users table
+
+```
+  balance Decimal  @default(0)
+```
+
+Regenerate & migrate 🚀
