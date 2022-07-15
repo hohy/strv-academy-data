@@ -1,5 +1,6 @@
 import firebase from 'firebase-admin'
 import { generate } from '../utils/generate'
+import { logger } from '../utils/logger'
 import serviceAccount from './service-account.json'
 
 // Initialize Cloud Firestore and get a reference to the service
@@ -15,13 +16,11 @@ const docRef = await db.collection('users').add({
   age: generate.age(),
 })
 
-console.log('Document written to: ', docRef.path)
+logger.info({ path: docRef.path }, 'Document written to: ')
 
 // Let's read the document back
 const document = await db.doc(docRef.path).get()
-console.log(document.data())
-
-// Generate more data
+logger.info(document.data())
 
 // close the connection
 await db.terminate()

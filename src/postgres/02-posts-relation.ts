@@ -1,41 +1,42 @@
 import { PrismaClient } from '@prisma/client'
 import _ from 'lodash'
-import { generate, generateUser } from '../utils/generate'
+import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 const prisma = new PrismaClient()
 
-// Find some user record in db
-let user = await prisma.user.findFirstOrThrow({
-  include: { posts: true },
-})
-
-// There should be no posts yet
-logger.info({ posts: user.posts }, 'User with posts')
-
-await prisma.post.create({
+// create a new user record and add post record to it
+const user = await prisma.user.create({
   data: {
-    title: 'My first post',
-    content: 'This is my first post',
-    authorId: user.id,
+    name: generate.name(),
+    email: generate.email(),
+    age: generate.age(),
+    posts: {
+      create: [{
+        title: 'First post',
+        content: 'This is the first post',
+      }]
+    }
   }
 })
 
 // Insert our first user record
-user = await prisma.user.findFirstOrThrow({
+const dbUser = await prisma.user.findFirstOrThrow({
+  where: { id: user.id },
   include: { posts: true },
 })
 
-logger.info({ posts: user.posts }, 'User with posts')
+logger.info({ posts: dbUser.posts }, 'User with posts')
 
-// Query the relation other way around
+// // Query the relation other way around
 const post = await prisma.post.findFirstOrThrow({
   include: { author: { select: { name: true } } },
 })
 logger.info({ post }, 'Post with author')
 
 
-// Limit included posts to 3
+// // Limit included posts to 3
 const userWithPosts = await prisma.user.findFirstOrThrow({
+  where: { id: user.id },
   include: {
     posts: {
       select: { title: true },

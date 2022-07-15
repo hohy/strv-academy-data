@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgres://postgres:postgres@localhost:5432/prisma"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -14,7 +14,7 @@ model User {
   email   String   @unique
   age     Int?
   deleted Boolean  @default(false)
-  balance Decimal  @default(0)
+  balance Decimal  @default(1000)
 
   posts   Post[]
 
@@ -23,7 +23,7 @@ model User {
 
 model Post {
   id        String      @db.Uuid @id @default(uuid())
-  title     String
+  title     String      
   content   String?
   createdAt DateTime    @default(now()) @map("created_at")
   authorId  String      @map("author_id") @db.Uuid
@@ -33,7 +33,7 @@ model Post {
   @@map("posts")
 }
 
-// model Counter {
-//   id      String   @db.Uuid @id @default(uuid())
-//   value   BigInt   @default(0)
-// }
+model Counter {
+  id      String   @db.Uuid @id @default(uuid())
+  value   BigInt   @default(0)
+}
